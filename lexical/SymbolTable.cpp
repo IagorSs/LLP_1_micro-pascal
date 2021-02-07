@@ -56,6 +56,5 @@ bool SymbolTable::contains(std::string token) {
 }
 
 enum TokenType SymbolTable::find(std::string token) {
-    return this->contains(token) ?
-              m_st[token] : TKN_ID;
+    return this->contains(token) ? m_st[token] : TKN_ID;
 }

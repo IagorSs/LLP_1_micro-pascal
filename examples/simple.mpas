@@ -1,0 +1,11 @@
+program simple;
+
+var
+  a;
+
+begin
+  write('Entrada: ');
+  readln(a);
+
+  writeln('Você entrou com ', a)
+end.

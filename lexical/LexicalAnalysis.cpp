@@ -20,6 +20,7 @@ int LexicalAnalysis::line() const {
 
 struct Lexeme LexicalAnalysis::nextToken() {
     struct Lexeme lex = { "", TKN_END_OF_FILE };
+    char digit[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     int state = 1;
     while (state != 12 && state != 13) {
@@ -27,38 +28,131 @@ struct Lexeme LexicalAnalysis::nextToken() {
         
         switch (state) {
             case 1:
-                // TODO: Implement me!
+                switch (c) {
+                    case '\t':
+                    case '\r':
+                    case '\n':
+                    case ' ':
+                        break;
+
+                    case '(':
+                        state = 2;
+                        lex.token += (char) c;
+                        break;
+
+                    case '<':
+                        state = 5;
+                        lex.token += (char) c;
+                        break;
+
+                    case '>':
+                        state = 6;
+                        lex.token += (char) c;
+                        break;
+
+                    case ':':
+                        state = 7;
+                        lex.token += (char) c;
+                        break;
+
+                    case '\'':
+                        state = 11;
+                        lex.token += (char) c;
+                        lex.type = TKN_STRING;
+                        break;
+
+                    case '.':
+                    case ',':
+                    case ';':
+                    case '=':
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '%':
+                    case ')':
+                        state = 12;
+                        lex.token += (char) c;
+                        break;
+
+                    default:
+                        lex.token += (char) c;
+                        if(isdigit(c)) {
+                            state = 9;
+                            lex.type = TKN_INTEGER;
+                        } else if(c == '_' || isalpha(c))
+                            state = 8;
+                        break;
+                }
                 break;
+
             case 2:
-                // TODO: Implement me!
+                if(c == '*') {
+                    lex.token = "";
+                    state = 3;
+                } else {
+                    state = 12;
+                    ungetc(c,m_file);
+                }
                 break;
+
             case 3:
-                // TODO: Implement me!
+                if(c == '*') state = 4;
                 break;
+
             case 4:
-                // TODO: Implement me!
+                if(c == ')') state = 1;
+                else if(c != '*') state = 3;
                 break;
+
             case 5:
-                // TODO: Implement me!
+                if(c != '=' && c != '>') ungetc(c, m_file);
+                else lex.token += (char) c;
+                state = 12;
                 break;
+
+            // Os dois estados vão ter o mesmo comportamento
             case 6:
-                // TODO: Implement me!
-                break;
             case 7:
-                // TODO: Implement me!
+                if(c != '=') ungetc(c, m_file);
+                else lex.token += (char) c;
+                state = 12;
                 break;
+
             case 8:
-                // TODO: Implement me!
+                if(c == '_' || isalpha(c)) lex.token += (char) c;
+                else {
+                    ungetc(c, m_file);
+                    state = 12;
+                }
                 break;
+
             case 9:
-                // TODO: Implement me!
+                if(isdigit(c))
+                    lex.token += (char) c;
+                else if(c == '.'){
+                    state = 10;
+                    lex.token += (char) c;
+                    lex.type = TKN_REAL;
+                } else {
+                    ungetc(c, m_file);
+                    state = 13;
+                }
                 break;
+
             case 10:
-                // TODO: Implement me!
+                if(isdigit(c))
+                    lex.token += (char) c;
+                else {
+                    ungetc(c, m_file);
+                    state = 13;
+                }
                 break;
+
             case 11:
-                // TODO: Implement me!
+                if(c == '\'') state = 13;
                 break;
+
             default:
                 assert(false);
         }
