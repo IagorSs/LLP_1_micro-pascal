@@ -54,6 +54,8 @@ void SyntaticAnalysis::showError() {
 //                [ var <var> { <var> } ]
 //                <block> '.'
 void SyntaticAnalysis::procProgram() {
+    eat(TKN_PROGRAM);
+    procId();
 }
 
 // <const>    ::= <id> = <value> ';'
@@ -66,6 +68,12 @@ void SyntaticAnalysis::procVar() {
 
 // <body>     ::= <block> | <cmd>
 void SyntaticAnalysis::procBody() {
+    if (m_current.type == TKN_BLOCK){
+        procBlock();
+    }
+    else{
+        procCmd();
+    } 
 }
 
 // <block>    ::= begin [ <cmd> { ';' <cmd> } ] end
@@ -74,14 +82,53 @@ void SyntaticAnalysis::procBlock() {
 
 // <cmd>      ::= <assign> | <if> | <case> | <while> | <for> | <repeat> | <write> | <read>
 void SyntaticAnalysis::procCmd() {
+    if(m_current.type == TKN_ID){
+        procAssign();
+    }
+    else if(m_current.type == TKN_IF){
+        procIf();
+    }
+    else if(m_current.type == TKN_CASE){
+        procCase();
+    }
+    else if(m_current.type == TKN_WHILE){
+        procWhile();
+    }
+    else if(m_current.type == TKN_FOR){
+        procFor();
+    }
+    else if(m_current.type == TKN_REPEAT){
+        procRepeat();
+    }
+    else if(m_current.type == TKN_WRITE){
+        procWrite();
+    }
+    else if(m_current.type == TKN_READLN){
+        procRead();
+    }
+    else{
+        showError();
+    }
 }
 
 // <assign>   ::= <id> := <expr>
 void SyntaticAnalysis::procAssign() {
+    procId();
+    eat(TKN_ASSIGN);
+    procExpr();
 }
 
 // <if>       ::= if <boolexpr> then <body> [else <body>]
 void SyntaticAnalysis::procIf() {
+    eat(TKN_IF);
+    procBoolExpr();
+    eat(TKN_THEN);
+    procBody();
+    if (m_current.type == TKN_ELSE)
+    {
+        advance();
+        procBody();
+    }
 }
 
 // <case>     ::= case <expr> of { <value> : <body> ';' } [ else <body> ';' ] end
@@ -90,6 +137,11 @@ void SyntaticAnalysis::procCase() {
 
 // <while>    ::= while <boolexpr> do <body>
 void SyntaticAnalysis::procWhile() {
+    eat(TKN_WHILE);
+    procBoolExpr();
+    eat(TKN_DO);
+    procBody();
+   // eat(Tkn_d)
 }
 
 // <repeat>   ::= repeat [ <cmd> { ';' <cmd> } ] until <boolexpr>
@@ -98,6 +150,13 @@ void SyntaticAnalysis::procRepeat() {
 
 // <for>      ::= for <id> := <expr> to <expr> do <body>
 void SyntaticAnalysis::procFor() {
+    eat(TKN_FOR);
+    eat(TKN_ASSIGN);
+    procExpr();
+    eat(TKN_TO);
+    procExpr();
+    eat(TKN_DO);
+    procBody();
 }
 
 // <write>    ::= (write | writeln) '(' [ <expr> { ',' <expr> } ] ')'
