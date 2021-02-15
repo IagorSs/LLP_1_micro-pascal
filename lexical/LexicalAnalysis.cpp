@@ -21,7 +21,6 @@ int LexicalAnalysis::line() const {
 struct Lexeme LexicalAnalysis::nextToken() {
     struct Lexeme lex = { "", TKN_END_OF_FILE };
 
-    bool canBeIdentifier = false;
     int state = 1;
     while (state != 12 && state != 13) {
         int c = getc(m_file);
@@ -83,10 +82,7 @@ struct Lexeme LexicalAnalysis::nextToken() {
                         if(isdigit(c)) {
                             state = 9;
                             lex.type = TKN_INTEGER;
-                        } else if(c == '_' || isalpha(c)){
-                            canBeIdentifier = true;
-                            state = 8;
-                        }
+                        } else if(c == '_' || isalpha(c)) state = 8;
                         break;
                 }
                 break;
@@ -166,10 +162,7 @@ struct Lexeme LexicalAnalysis::nextToken() {
         }
     }
 
-    if (state == 12){
-        lex.type = m_st.find(lex.token);
-        if(!canBeIdentifier && lex.type == TKN_ID) lex.type = TKN_INVALID_TOKEN;
-    }
+    if (state == 12) lex.type = m_st.find(lex.token);
 
     return lex;
 }
