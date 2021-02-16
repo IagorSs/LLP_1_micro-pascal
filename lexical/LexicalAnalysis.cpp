@@ -20,7 +20,6 @@ int LexicalAnalysis::line() const {
 
 struct Lexeme LexicalAnalysis::nextToken() {
     struct Lexeme lex = { "", TKN_END_OF_FILE };
-    char digit[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     int state = 1;
     while (state != 12 && state != 13) {
@@ -33,6 +32,10 @@ struct Lexeme LexicalAnalysis::nextToken() {
                     case '\r':
                     case '\n':
                     case ' ':
+                        break;
+                        
+                    case EOF:
+                        state = 13;
                         break;
 
                     case '(':
@@ -57,7 +60,6 @@ struct Lexeme LexicalAnalysis::nextToken() {
 
                     case '\'':
                         state = 11;
-                        lex.token += (char) c;
                         lex.type = TKN_STRING;
                         break;
 
@@ -80,8 +82,7 @@ struct Lexeme LexicalAnalysis::nextToken() {
                         if(isdigit(c)) {
                             state = 9;
                             lex.type = TKN_INTEGER;
-                        } else if(c == '_' || isalpha(c))
-                            state = 8;
+                        } else if(c == '_' || isalpha(c)) state = 8;
                         break;
                 }
                 break;
@@ -128,8 +129,7 @@ struct Lexeme LexicalAnalysis::nextToken() {
                 break;
 
             case 9:
-                if(isdigit(c))
-                    lex.token += (char) c;
+                if(isdigit(c)) lex.token += (char) c;
                 else if(c == '.'){
                     state = 10;
                     lex.token += (char) c;
@@ -150,7 +150,11 @@ struct Lexeme LexicalAnalysis::nextToken() {
                 break;
 
             case 11:
-                if(c == '\'') state = 13;
+                if(c == '\'') {
+                    state = 13;
+                    break;
+                }
+                lex.token += (char) c;
                 break;
 
             default:
@@ -158,8 +162,7 @@ struct Lexeme LexicalAnalysis::nextToken() {
         }
     }
 
-    if (state == 12)
-        lex.type = m_st.find(lex.token);
+    if (state == 12) lex.type = m_st.find(lex.token);
 
     return lex;
 }
