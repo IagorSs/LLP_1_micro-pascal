@@ -18,6 +18,13 @@ int LexicalAnalysis::line() const {
     return m_line;
 }
 
+void myUngetc(int c, FILE *input, int *state, struct Lexeme *lex){
+    if(c == EOF) {
+        *state = 13;
+        lex->type = TKN_UNEXPECTED_EOF;
+    } else ungetc(c,input);
+}
+
 struct Lexeme LexicalAnalysis::nextToken() {
     struct Lexeme lex = { "", TKN_END_OF_FILE };
 
@@ -28,9 +35,10 @@ struct Lexeme LexicalAnalysis::nextToken() {
         switch (state) {
             case 1:
                 switch (c) {
+                    case '\n':
+                        m_line++;
                     case '\t':
                     case '\r':
-                    case '\n':
                     case ' ':
                         break;
                         
@@ -83,6 +91,10 @@ struct Lexeme LexicalAnalysis::nextToken() {
                             state = 9;
                             lex.type = TKN_INTEGER;
                         } else if(c == '_' || isalpha(c)) state = 8;
+                        else {
+                            state = 13;
+                            lex.type = TKN_INVALID_TOKEN;
+                        }
                         break;
                 }
                 break;
@@ -93,38 +105,40 @@ struct Lexeme LexicalAnalysis::nextToken() {
                     state = 3;
                 } else {
                     state = 12;
-                    ungetc(c,m_file);
+                    myUngetc(c,m_file, &state, &lex);
                 }
                 break;
 
             case 3:
                 if(c == '*') state = 4;
+                if(c == '\n') m_line++;
                 break;
 
             case 4:
+                if(c == '\n') m_line++;
                 if(c == ')') state = 1;
                 else if(c != '*') state = 3;
                 break;
 
             case 5:
-                if(c != '=' && c != '>') ungetc(c, m_file);
-                else lex.token += (char) c;
                 state = 12;
+                if(c != '=' && c != '>') myUngetc(c,m_file, &state, &lex);
+                else lex.token += (char) c;
                 break;
 
             // Os dois estados vão ter o mesmo comportamento
             case 6:
             case 7:
-                if(c != '=') ungetc(c, m_file);
-                else lex.token += (char) c;
                 state = 12;
+                if(c != '=') myUngetc(c,m_file, &state, &lex);
+                else lex.token += (char) c;
                 break;
 
             case 8:
                 if(c == '_' || isalpha(c)) lex.token += (char) c;
                 else {
-                    ungetc(c, m_file);
                     state = 12;
+                    myUngetc(c,m_file, &state, &lex);
                 }
                 break;
 
@@ -135,8 +149,8 @@ struct Lexeme LexicalAnalysis::nextToken() {
                     lex.token += (char) c;
                     lex.type = TKN_REAL;
                 } else {
-                    ungetc(c, m_file);
                     state = 13;
+                    myUngetc(c,m_file, &state, &lex);
                 }
                 break;
 
@@ -144,17 +158,23 @@ struct Lexeme LexicalAnalysis::nextToken() {
                 if(isdigit(c))
                     lex.token += (char) c;
                 else {
-                    ungetc(c, m_file);
                     state = 13;
+                    myUngetc(c,m_file, &state, &lex);
                 }
                 break;
 
             case 11:
-                if(c == '\'') {
+                if(c == EOF){
+                    lex.type = TKN_UNEXPECTED_EOF;
                     state = 13;
-                    break;
+                }else{
+                    if(c == '\'') {
+                        state = 13;
+                        break;
+                    }
+                    if(c == '\n') m_line++;
+                    lex.token += (char) c;
                 }
-                lex.token += (char) c;
                 break;
 
             default:
