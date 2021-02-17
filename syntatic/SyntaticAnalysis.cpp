@@ -68,15 +68,17 @@ void SyntaticAnalysis::procProgram()
     procId();
     eat(TKN_SEMICOLON);
     if(m_current.type == TKN_CONST){
+        advance();
         procConst();
-        while (m_current.type == TKN_CONST)
+        while ((m_current.type == TKN_ID))
         {
             procConst();
         }
     }
     if(m_current.type == TKN_VAR){
+        advance();
         procVar();
-        while (m_current.type == TKN_VAR)
+        while (m_current.type == TKN_ID)
         {
             procVar();
         }
@@ -98,8 +100,9 @@ void SyntaticAnalysis::procConst()
 void SyntaticAnalysis::procVar()
 {
     procId();
-    while (m_current.type == TKN_SEMICOLON)
+    while (m_current.type == TKN_COLON)
     {
+        advance();
         procId();
     }
     if(m_current.type == TKN_EQUAL){
@@ -142,7 +145,7 @@ void SyntaticAnalysis::procBlock()
 // <cmd>      ::= <assign> | <if> | <case> | <while> | <for> | <repeat> | <write> | <read>
 void SyntaticAnalysis::procCmd()
 {
-    if (m_current.type == TKN_ID)
+    if (m_current.type == TKN_ASSIGN)
     {
         procAssign();
     }
@@ -166,7 +169,7 @@ void SyntaticAnalysis::procCmd()
     {
         procRepeat();
     }
-    else if (m_current.type == TKN_WRITE)
+    else if ((m_current.type == TKN_WRITE) || (m_current.type == TKN_WRITELN))
     {
         procWrite();
     }
@@ -295,7 +298,10 @@ void SyntaticAnalysis::procRead()
     procId();
     while ((m_current.type == TKN_COMMA))
     {
-        procId();
+        advance();
+        if(m_current.type == TKN_ID){
+            procId();
+        }
     }
     eat(TKN_CLOSE_PAR);
 }
@@ -345,9 +351,16 @@ void SyntaticAnalysis::procExpr()
     procTerm();
     while ((m_current.type == TKN_ADD) || (m_current.type == TKN_SUB))
     {
-        procTerm();
+        advance();
+        if(m_current.type == TKN_INTEGER 
+        || m_current.type == TKN_REAL || m_current.type == TKN_STRING 
+        || m_current.type == TKN_ID ||m_current.type == TKN_OPEN_PAR){
+            procTerm();
+        }
+        else{
+            showError();
+        }
     }
-    
 }
 
 // <term>     ::= <factor> { ('*' | '/' | '%') <factor> }
@@ -357,6 +370,7 @@ void SyntaticAnalysis::procTerm()
     while ((m_current.type == TKN_MUL) || (m_current.type == TKN_DIV) ||
     (m_current.type == TKN_MOD))
     {
+        advance();
         procFactor();
     }
     
