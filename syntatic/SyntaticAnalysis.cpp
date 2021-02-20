@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <iostream>
 #include "SyntaticAnalysis.h"
 
 #include "../interpreter/command/Command.h"
@@ -10,7 +11,8 @@ SyntaticAnalysis::~SyntaticAnalysis() {
 }
 
 Command *SyntaticAnalysis::start() {
-    return 0;
+    procProgram();
+    eat(TKN_END_OF_FILE);
 }
 
 void SyntaticAnalysis::advance() {
@@ -18,7 +20,10 @@ void SyntaticAnalysis::advance() {
 }
 
 void SyntaticAnalysis::eat(enum TokenType type) {
-    if (type == m_current.type) m_current = m_lex.nextToken();
+    if( type == TKN_END_OF_FILE){
+        std::cout << "CHEGOU AO FIM " << type << std::endl;
+    }
+    if (type == m_current.type) m_current = m_current.type != TKN_END_OF_FILE ? m_lex.nextToken():m_current;
     else showError();
 }
 
@@ -75,7 +80,7 @@ void SyntaticAnalysis::procConst() {
 // <var>      ::= <id> { ',' <id> } [ = <value> ] ';'
 void SyntaticAnalysis::procVar() {
     procId();
-    while (m_current.type == TKN_COLON){
+    while (m_current.type == TKN_COMMA){
         advance();
         procId();
     }
@@ -205,13 +210,14 @@ void SyntaticAnalysis::procWhile() {
 
 // <repeat>   ::= repeat [ <cmd> { ';' <cmd> } ] until <boolexpr>
 void SyntaticAnalysis::procRepeat() {
-    procRepeat();
+    eat(TKN_REPEAT);
     
     if((m_current.type == TKN_ID) || (m_current.type == TKN_IF)
         || (m_current.type == TKN_CASE)|| (m_current.type == TKN_WHILE)
         || (m_current.type == TKN_FOR) || (m_current.type == TKN_REPEAT)
         || (m_current.type == TKN_WRITE) || (m_current.type == TKN_READLN)
         || (m_current.type == TKN_WRITELN)){
+        procCmd();
 
         while (m_current.type == TKN_SEMICOLON) {
             advance();
@@ -282,8 +288,13 @@ void SyntaticAnalysis::procBoolExpr() {
     }
 }
 
-// <cmpexpr>  ::= <expr> ('=' | '<>' | '<' | '>' | '<=' | '>=') <expr>
+// <cmpexpr>  ::= <expr> ('=' | '<>' | '<' | '>' | '<=' | '>=') <expr> |
+//            '(' <expr> ('=' | '<>' | '<' | '>' | '<=' | '>=') <expr> ')'
 void SyntaticAnalysis::procCmpExpr() {
+    bool existPar = m_current.type == TKN_OPEN_PAR;
+
+    if (existPar) eat(TKN_OPEN_PAR);
+
     procExpr();
 
     switch (m_current.type){
@@ -300,6 +311,8 @@ void SyntaticAnalysis::procCmpExpr() {
     }
 
     procExpr();
+
+    if (existPar) eat(TKN_CLOSE_PAR);
 }
 
 // <expr>     ::= <term> { ('+' | '-') <term> }

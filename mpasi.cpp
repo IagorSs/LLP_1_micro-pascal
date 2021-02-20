@@ -12,21 +12,23 @@ int main(int argc, char* argv[]) {
 
     try {
         LexicalAnalysis l(argv[1]);
+        Lexeme lex;
+        SyntaticAnalysis s(l);
 
-/*
+        // s.start();
+
         // O código a seguir é dado para testar o interpretador.
         // TODO: descomentar depois que o analisador léxico estiver OK.
-        SyntaticAnalysis s(l);
-        Command* c = s.start();
-        c->execute();
-        delete c;
-*/
+        // SyntaticAnalysis s(l);
+        // Command* c = s.start();
+        // c->execute();
+        // delete c;
+
 
         // O código a seguir é usado apenas para testar o analisador léxico.
         // TODO: depois de pronto, comentar o código abaixo.
-        struct Lexeme lex;
-        while ((lex = l.nextToken()).type > 0) {
-            printf("(\"%s\", %d)\n", lex.token.c_str(), lex.type);
+        while ((lex = l.nextToken()).type > TKN_END_OF_FILE) {
+            printf("%s, %d\n", lex.token.c_str(), lex.type);
         }
 
         switch (lex.type) {

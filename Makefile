@@ -4,6 +4,7 @@ CXXFLAGS=-g -ggdb -O2 -Wall
 TARGET=mpasi
 OBJS=lexical/SymbolTable.o \
 		lexical/LexicalAnalysis.o \
+		syntatic/SyntaticAnalysis.o \
 		mpasi.o
 
 all: $(TARGET)

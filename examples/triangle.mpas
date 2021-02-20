@@ -15,7 +15,7 @@ begin
 
     write('(', a, ', ', b, ', ', c, ') ');
 
-    if (a + b <= c) or (a + c <= b) or (b + c <= a) then
+    if a + b <= c or a + c <= b or b + c <= a then
         begin
           writeln('is an invalid triangle');
           valid := 0
@@ -28,6 +28,6 @@ begin
       else
         writeln('is a scalene triangle');
 
-    writeln();
+    writeln()
   until valid = 0
 end.
