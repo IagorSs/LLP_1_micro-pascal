@@ -20,10 +20,7 @@ void SyntaticAnalysis::advance() {
 }
 
 void SyntaticAnalysis::eat(enum TokenType type) {
-    if( type == TKN_END_OF_FILE){
-        std::cout << "CHEGOU AO FIM " << type << std::endl;
-    }
-    if (type == m_current.type) m_current = m_current.type != TKN_END_OF_FILE ? m_lex.nextToken():m_current;
+    if (type == m_current.type) m_current = m_current.type == TKN_END_OF_FILE ? m_current:m_lex.nextToken();        
     else showError();
 }
 

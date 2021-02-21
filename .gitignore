@@ -2,4 +2,5 @@ tmp/
 .vscode/
 
 *.o
+*.exe
 /mpasi
