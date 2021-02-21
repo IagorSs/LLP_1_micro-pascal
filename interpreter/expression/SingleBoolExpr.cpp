@@ -1,7 +1,7 @@
 #include "Expr.h"
 #include "SingleBoolExpr.h"
 
-SingleBoolExpr::SingleBoolExpr(int line, Expr* left, enum SingleBoolExpr::Op op, Expr* right)
+SingleBoolExpr::SingleBoolExpr(int line, Expr* left, enum SingleBoolExpr::RelOp op, Expr* right)
 	: BoolExpr(line), m_left(left), m_op(op), m_right(right) {
 }
 
@@ -10,7 +10,11 @@ SingleBoolExpr::~SingleBoolExpr() {
 	delete m_right;
 }
 
-bool SingleBoolExpr::expr() {
+int SingleBoolExpr::getLine(){
+	//Implementar
+}
+
+bool SingleBoolExpr::expr() { //Tem que fazer o cast ainda
 	int v1 = m_left->expr();
 	int v2 = m_right->expr();
 

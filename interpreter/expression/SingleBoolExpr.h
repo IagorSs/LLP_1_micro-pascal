@@ -7,7 +7,7 @@ class Expr;
 
 class SingleBoolExpr : public BoolExpr {
 	public:
-		enum Op {
+		enum RelOp {
 			EQUAL,
 			NOT_EQUAL,
 			LOWER,
@@ -16,14 +16,15 @@ class SingleBoolExpr : public BoolExpr {
 			GREATER_EQUAL
 		};
 
-		SingleBoolExpr(int line, Expr* left, enum Op op, Expr* right);
+		SingleBoolExpr(int line, Expr* left, enum RelOp op, Expr* right);
 		virtual ~SingleBoolExpr();
 
+		virtual int getLine();
 		virtual bool expr();
 
 	private:
 		Expr* m_left;
-		enum Op m_op;
+		enum RelOp m_op;
 		Expr* m_right;
 
 };
