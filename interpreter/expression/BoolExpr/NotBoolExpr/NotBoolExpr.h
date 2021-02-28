@@ -1,7 +1,7 @@
 #ifndef NOT_BOOL_EXPR_H
 #define NOT_BOOL_EXPR_H
 
-#include "BoolExpr.h"
+#include "../BoolExpr.h"
 
 class NotBoolExpr : public BoolExpr{
     public:

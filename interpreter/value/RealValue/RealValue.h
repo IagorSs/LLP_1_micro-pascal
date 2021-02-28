@@ -1,7 +1,7 @@
 #ifndef REAL_VALUE_H
 #define REAL_VALUE_H
 
-#include "Value.h"
+#include "../Value.h"
 
 class RealValue : public Value<double> {
     public:

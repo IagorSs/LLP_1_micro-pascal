@@ -6,8 +6,13 @@
 
 class Memory {
 	public:
-		static Type* read(const std::string& name);
-		static void write(const std::string& name, Type* value);
+		static Type* read(std::string name){
+			return m_memory[name];
+		};
+
+		static void write(std::string name, Type* value){
+			m_memory[name] = value;
+		};
 
 	private:
 		static std::map<std::string, Type*> m_memory;

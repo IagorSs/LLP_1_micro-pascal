@@ -1,7 +1,7 @@
 #ifndef COMPOSITE_EXPR_H
 #define COMPOSITE_EXPR_H
 
-#include "BoolExpr.h"
+#include "../BoolExpr.h"
 
 class CompositeExpr : public BoolExpr{
     public:

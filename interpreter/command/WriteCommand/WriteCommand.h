@@ -2,10 +2,12 @@
 #define WRITE_COMMAND_H
 
 #include <list>
-#include "Command.h"
-#include "../expression/Expr.h"
+#include "../Command.h"
+#include "../../expression/Expr.h"
 
-class Expr;
+#include "../../value/IntegerValue/IntegerValue.h"
+#include "../../value/StringValue/StringValue.h"
+#include "../../value/RealValue/RealValue.h"
 
 class WriteCommand : public Command{
     public:

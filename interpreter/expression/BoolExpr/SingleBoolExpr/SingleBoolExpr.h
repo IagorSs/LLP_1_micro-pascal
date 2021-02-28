@@ -1,9 +1,8 @@
 #ifndef SINGLE_BOOL_EXPR_H
 #define SINGLE_BOOL_EXPR_H
 
-#include "BoolExpr.h"
-
-class Expr;
+#include "../BoolExpr.h"
+#include "../../Expr/Expr.h"
 
 class SingleBoolExpr : public BoolExpr {
 	public:

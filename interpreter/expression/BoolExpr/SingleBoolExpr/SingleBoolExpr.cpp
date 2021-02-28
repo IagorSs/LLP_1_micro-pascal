@@ -1,4 +1,3 @@
-#include "Expr.h"
 #include "SingleBoolExpr.h"
 
 SingleBoolExpr::SingleBoolExpr(int line, Expr* left, enum SingleBoolExpr::RelOp op, Expr* right)
@@ -15,22 +14,22 @@ int SingleBoolExpr::line(){
 }
 
 bool SingleBoolExpr::expr() { //Tem que fazer o cast ainda
-	int v1 = m_left->expr();
-	int v2 = m_right->expr();
+	// int v1 = m_left->expr();
+	// int v2 = m_right->expr();
 
-	switch (m_op) {
-		case SingleBoolExpr::EQUAL:
-			return v1 == v2;
-		case SingleBoolExpr::NOT_EQUAL:
-			return v1 != v2;
-		case SingleBoolExpr::LOWER:
-			return v1 < v2;
-		case SingleBoolExpr::LOWER_EQUAL:
-			return v1 <= v2;
-		case SingleBoolExpr::GREATER:
-			return v1 > v2;
-		case SingleBoolExpr::GREATER_EQUAL:
-		default:
-			return v1 >= v2;
-	}
+	// switch (m_op) {
+	// 	case SingleBoolExpr::EQUAL:
+	// 		return v1 == v2;
+	// 	case SingleBoolExpr::NOT_EQUAL:
+	// 		return v1 != v2;
+	// 	case SingleBoolExpr::LOWER:
+	// 		return v1 < v2;
+	// 	case SingleBoolExpr::LOWER_EQUAL:
+	// 		return v1 <= v2;
+	// 	case SingleBoolExpr::GREATER:
+	// 		return v1 > v2;
+	// 	case SingleBoolExpr::GREATER_EQUAL:
+	// 	default:
+	// 		return v1 >= v2;
+	// }
 }

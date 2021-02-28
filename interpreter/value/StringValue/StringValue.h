@@ -1,7 +1,7 @@
 #ifndef STRING_VALUE_H
 #define STRING_VALUE_H
 
-#include "Value.h"
+#include "../Value.h"
 
 #include <string>
 

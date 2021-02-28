@@ -1,8 +1,11 @@
 #ifndef BINARY_EXPR_H
 #define BINARY_EXPR_H
 
-#include "Expr.h"
-#include "../value/Value.h"
+#include "../Expr.h"
+
+#include "../../../value/RealValue/RealValue.h"
+#include "../../../value/IntegerValue/IntegerValue.h"
+#include "../../../value/Value.h"
 
 class BinaryExpr : public Expr{
     public:

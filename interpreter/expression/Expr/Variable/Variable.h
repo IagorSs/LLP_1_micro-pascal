@@ -1,15 +1,16 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
-#include "Expr.h"
-#include "Value.h"
+#include <string>
+#include "../Expr.h"
+#include "../../../../util/Memory.h"
 
 class Variable : public Expr {
 	public:
-		Variable(int line, const std::string& name);
+		Variable(int line, std::string name);
 		virtual ~Variable();
 
-		const std::string& name() const { return m_name; }
+		std::string name() { return m_name; }
 
 		Type* value();
 		
@@ -18,7 +19,7 @@ class Variable : public Expr {
 		virtual Type* expr();
 
 	private:
-		const std::string m_name;
+		std::string m_name;
 };
 
 #endif
