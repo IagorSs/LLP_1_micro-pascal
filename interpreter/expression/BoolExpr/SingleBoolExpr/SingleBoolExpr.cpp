@@ -10,7 +10,7 @@ SingleBoolExpr::~SingleBoolExpr() {
 	delete m_right;
 }
 
-int SingleBoolExpr::getLine(){
+int SingleBoolExpr::line(){
 	//Implementar
 }
 

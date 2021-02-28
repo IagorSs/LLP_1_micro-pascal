@@ -9,7 +9,7 @@ CompositeExpr::~CompositeExpr(){
     delete m_right;
 }
 
-int CompositeExpr::getLine(){
+int CompositeExpr::line(){
     //Tem que implementar
     
 }

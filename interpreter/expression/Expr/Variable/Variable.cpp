@@ -1,6 +1,5 @@
 #include "Variable.h"
 #include "../util/Memory.h"
-#include "String.h"
 
 Variable::Variable(int line, const std::string& name)
     :Expr(line), m_name(name){

@@ -7,10 +7,11 @@ class BoolExpr;
 
 class IfCommand : public Command{
     public:
+        IfCommand(int line, BoolExpr* cond, Command* thenCmds);
         IfCommand(int line, BoolExpr* cond, Command* thenCmds, Command* elseCommand);
         virtual ~IfCommand();
-
-       // virtual void setElseCommands(Command* elseCommand);
+        
+        virtual void setElseCommands(Command* elseCmds);
         virtual void execute();
     
     private:

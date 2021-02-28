@@ -13,7 +13,7 @@ class CompositeExpr : public BoolExpr{
         CompositeExpr(int line, BoolExpr* left, enum BoolOp op, BoolExpr* right);
         virtual ~CompositeExpr();
 
-        virtual int getLine();
+        virtual int line();
         virtual bool expr();
     
     private:
