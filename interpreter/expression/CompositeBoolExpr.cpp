@@ -11,6 +11,7 @@ CompositeExpr::~CompositeExpr(){
 
 int CompositeExpr::getLine(){
     //Tem que implementar
+    
 }
 
 bool CompositeExpr::expr(){
