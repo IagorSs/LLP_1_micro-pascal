@@ -13,4 +13,14 @@ ForCommand::~ForCommand(){
 
 void ForCommand::execute(){
     // Tem que implementar
+    m_var->setValue(m_src->expr());
+
+    IntegerValue* i = (IntegerValue*) m_var->expr();
+
+    while(i <= m_dst->expr()){
+        m_cmd->execute();
+        i->setValue(i->value() + 1);
+    }
+
+    m_var->setValue(i);
 }

@@ -4,6 +4,7 @@
 #include "../Command.h"
 #include "../../expression/Expr/Expr.h"
 #include "../../expression/Expr/Variable/Variable.h"
+#include "../../value/IntegerValue/IntegerValue.h"
 
 class Variable;
 

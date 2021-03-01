@@ -7,6 +7,10 @@ IntegerValue::IntegerValue(int value)
 IntegerValue::~IntegerValue() {
 }
 
+void IntegerValue::setValue(int value) {
+  m_value = value;
+}
+
 int IntegerValue::value() {
     return m_value;
 }

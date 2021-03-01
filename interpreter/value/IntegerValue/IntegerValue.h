@@ -9,6 +9,7 @@ class IntegerValue : public Value<int> {
         virtual ~IntegerValue();
 
         int value();
+        void setValue(int value);
 
     private:
         int m_value;
