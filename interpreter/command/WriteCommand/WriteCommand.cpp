@@ -1,6 +1,6 @@
 #include "WriteCommand.h"
 
- WriteCommand::WriteCommand(int line, bool writeln = 0)
+ WriteCommand::WriteCommand(int line, bool writeln)
     :Command(line),m_writeln(writeln){
 }
 
@@ -17,8 +17,6 @@ void WriteCommand::addExpr(Expr* expr){
 }
         
 void  WriteCommand::execute(){
-    //Tem que implementar
-
     for(Expr* current:this->m_exprs){
         switch(current->expr()->type()){
             case Type::IntegerType:

@@ -1,8 +1,7 @@
 #include "IfCommand.h"
-#include "../expression/BoolExpr.h"
 
-IfCommand::IfCommand(int line, BoolExpr* cond, Command* thenCmds, Command* elseCommand)
-    : Command(line), m_cond(cond), m_thenCmds(thenCmds),m_elseCmds(elseCommand){
+IfCommand::IfCommand(int line, BoolExpr* cond, Command* thenCmds, Command* elseCommands)
+    : Command(line), m_cond(cond), m_thenCmds(thenCmds),m_elseCmds(elseCommands){
 }
 
 IfCommand::IfCommand(int line, BoolExpr* cond, Command* thenCmds)

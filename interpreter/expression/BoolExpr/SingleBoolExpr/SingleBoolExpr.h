@@ -7,7 +7,7 @@
 class SingleBoolExpr : public BoolExpr {
 	public:
 		enum RelOp {
-			EQUAL,
+			EQUAL = 1,
 			NOT_EQUAL,
 			LOWER,
 			GREATER,

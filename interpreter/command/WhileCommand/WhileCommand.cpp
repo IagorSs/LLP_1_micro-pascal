@@ -1,5 +1,4 @@
 #include "WhileCommand.h"
-#include "../expression/BoolExpr.h"
 
 WhileCommand::WhileCommand(int line, BoolExpr* cond, Command* cmds)
     :Command(line), m_cond(cond),m_cmds(cmds){
@@ -11,8 +10,7 @@ WhileCommand::~WhileCommand(){
 }
 
 void WhileCommand::execute(){
-    while (m_cond->expr())
-    {
+    while (m_cond->expr()) {
         m_cmds->execute();
     }
 }

@@ -68,7 +68,6 @@ struct Lexeme LexicalAnalysis::nextToken() {
                         break;
 
                     case '\'':
-                        lex.token += (char) c;
                         state = 11;
                         lex.type = TKN_STRING;
                         break;
@@ -170,11 +169,11 @@ struct Lexeme LexicalAnalysis::nextToken() {
                     lex.type = TKN_UNEXPECTED_EOF;
                     state = 13;
                 }else{
-                    lex.token += (char) c;
                     if(c == '\'') {
                         state = 13;
                         break;
                     }
+                    lex.token += (char) c;
                     if(c == '\n') m_line++;
                 }
                 break;

@@ -3,15 +3,15 @@
 
 #include "../BoolExpr.h"
 
-class CompositeExpr : public BoolExpr{
+class CompositeBoolExpr : public BoolExpr{
     public:
         enum BoolOp{
-            And,
+            And = 1,
             Or
         };
 
-        CompositeExpr(int line, BoolExpr* left, enum BoolOp op, BoolExpr* right);
-        virtual ~CompositeExpr();
+        CompositeBoolExpr(int line, BoolExpr* left, enum BoolOp op, BoolExpr* right);
+        virtual ~CompositeBoolExpr();
 
         virtual int line();
         virtual bool expr();

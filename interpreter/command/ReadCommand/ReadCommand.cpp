@@ -5,9 +5,7 @@ ReadCommand::ReadCommand(int line)
 }
 
 ReadCommand::~ReadCommand() {
-    for (std::list<Variable*>::iterator it = m_vars.begin(),
-        ed = m_vars.end(); it != ed; it++) {
-        Command* var = *it;
+    for (Variable* var: m_vars) {
         delete var;
     }
 }

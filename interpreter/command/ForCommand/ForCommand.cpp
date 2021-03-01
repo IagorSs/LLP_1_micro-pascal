@@ -1,6 +1,4 @@
 #include "ForCommand.h"
-#include "../expression/Expr.h"
-#include "../expression/Variable.h"
 
 ForCommand::ForCommand(int line, Variable* var, Expr* src, Expr* dst, Command* cmd)
     :Command(line),m_var(var),m_src(src),m_cmd(cmd){

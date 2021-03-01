@@ -2,20 +2,18 @@
 #define REPEAT_COMMAND_H
 
 #include <list>
-#include "Command.h"
-#include "../expression/BoolExpr.h"
-
-class BoolExpr;
+#include "../Command.h"
+#include "../../expression/BoolExpr/BoolExpr.h"
 
 class RepeatCommand : public Command{
     public:
-        RepeatCommand(int line, std::list<Command*> cmds, BoolExpr* cond);
+        RepeatCommand(int line, Command* cmds, BoolExpr* cond);
         virtual ~RepeatCommand();
 
         virtual void execute();
 
     private:
-        std::list<Command*> m_cmds;
+        Command* m_cmds;
         BoolExpr* m_cond;
 };
 

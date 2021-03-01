@@ -37,23 +37,26 @@ void syntaticTest(char *filename){
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        printf("Usage: %s [miniPascal file]\n", argv[0]);
-        return 1;
-    }
+    // if (argc != 2) {
+    //     printf("Usage: %s [miniPascal file]\n", argv[0]);
+    //     return 1;
+    // }
 
     try {
-        char *filename = argv[1];
+        // char *filename = argv[1];
+
+        char *filename = "./examples/write.mpas";
 
         // lexicalTest(filename);
-        syntaticTest(filename);
+        // syntaticTest(filename);
 
         // O código a seguir é dado para testar o interpretador.
         // TODO: descomentar depois que o analisador léxico estiver OK.
-        // SyntaticAnalysis s(l);
-        // Command* c = s.start();
-        // c->execute();
-        // delete c;
+        LexicalAnalysis l(filename);
+        SyntaticAnalysis s(l);
+        Command* c = s.start();
+        c->execute();
+        delete c;
     } catch (std::string msg) {
         fprintf(stderr, "Internal error: %s\n", msg.c_str());
         return 2;

@@ -10,7 +10,7 @@
 class BinaryExpr : public Expr{
     public:
         enum BinaryOp{
-            AddOp,
+            AddOp = 1,
             SubOp,
             MulOp,
             DivOp,

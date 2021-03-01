@@ -1,9 +1,9 @@
 #ifndef FOR_COMMAND_H
 #define FOR_COMMAND_H
 
-#include "Command.h"
-#include "../expression/Expr.h"
-#include "../expression/Variable.h"
+#include "../Command.h"
+#include "../../expression/Expr/Expr.h"
+#include "../../expression/Expr/Variable/Variable.h"
 
 class Variable;
 

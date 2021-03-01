@@ -2,8 +2,8 @@
 #define READ_COMMAND_H
 
 #include <list>
-#include "Command.h"
-#include "../expression/Variable.h"
+#include "../Command.h"
+#include "../../expression/Expr/Variable/Variable.h"
 
 class ReadCommand: public Command {
     public:

@@ -1,7 +1,8 @@
 #ifndef WHILE_COMMAND_H
 #define WHILE_COMMAND_H
 
-#include "Command.h"
+#include "../Command.h"
+#include "../../expression/BoolExpr/BoolExpr.h"
 
 class BoolExpr;
 

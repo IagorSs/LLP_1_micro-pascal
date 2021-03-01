@@ -11,8 +11,6 @@ class Variable : public Expr {
 		virtual ~Variable();
 
 		std::string name() { return m_name; }
-
-		Type* value();
 		
 		void setValue(Type* value);
 

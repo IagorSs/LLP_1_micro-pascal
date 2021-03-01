@@ -9,27 +9,24 @@ SingleBoolExpr::~SingleBoolExpr() {
 	delete m_right;
 }
 
-int SingleBoolExpr::line(){
-	//Implementar
-}
+bool SingleBoolExpr::expr() {
+	//Tem que fazer o cast ainda se isso n funcionar
+	Type* v1 = m_left->expr();
+	Type* v2 = m_right->expr();
 
-bool SingleBoolExpr::expr() { //Tem que fazer o cast ainda
-	// int v1 = m_left->expr();
-	// int v2 = m_right->expr();
-
-	// switch (m_op) {
-	// 	case SingleBoolExpr::EQUAL:
-	// 		return v1 == v2;
-	// 	case SingleBoolExpr::NOT_EQUAL:
-	// 		return v1 != v2;
-	// 	case SingleBoolExpr::LOWER:
-	// 		return v1 < v2;
-	// 	case SingleBoolExpr::LOWER_EQUAL:
-	// 		return v1 <= v2;
-	// 	case SingleBoolExpr::GREATER:
-	// 		return v1 > v2;
-	// 	case SingleBoolExpr::GREATER_EQUAL:
-	// 	default:
-	// 		return v1 >= v2;
-	// }
+	switch (m_op) {
+		case SingleBoolExpr::EQUAL:
+			return v1 == v2;
+		case SingleBoolExpr::NOT_EQUAL:
+			return v1 != v2;
+		case SingleBoolExpr::LOWER:
+			return v1 < v2;
+		case SingleBoolExpr::LOWER_EQUAL:
+			return v1 <= v2;
+		case SingleBoolExpr::GREATER:
+			return v1 > v2;
+		case SingleBoolExpr::GREATER_EQUAL:
+		default:
+			return v1 >= v2;
+	}
 }

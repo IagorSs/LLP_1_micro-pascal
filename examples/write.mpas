@@ -1,0 +1,5 @@
+program teste_write;
+
+begin
+  write(5)
+end.

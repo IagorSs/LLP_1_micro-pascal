@@ -1,5 +1,4 @@
-#include "AssignCmd.h"
-#include "../expression/Variable.h"
+#include "AssignCommand.h"
 
 AssignCommand::AssignCommand(int line, Variable* left, Expr* rigth)
     : Command(line), m_left(left),m_right(rigth){

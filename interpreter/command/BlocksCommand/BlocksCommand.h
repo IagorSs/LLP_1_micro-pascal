@@ -2,7 +2,7 @@
 #define BLOCKS_COMMAND_H
 
 #include <list>
-#include "Command.h"
+#include "../Command.h"
 
 class BlocksCommand : public Command {
 	public:

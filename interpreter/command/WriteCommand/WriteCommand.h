@@ -3,7 +3,7 @@
 
 #include <list>
 #include "../Command.h"
-#include "../../expression/Expr.h"
+#include "../../expression/Expr/Expr.h"
 
 #include "../../value/IntegerValue/IntegerValue.h"
 #include "../../value/StringValue/StringValue.h"
@@ -11,7 +11,7 @@
 
 class WriteCommand : public Command{
     public:
-        WriteCommand(int line, bool writeln = 0);
+        WriteCommand(int line, bool writeln);
         virtual ~WriteCommand();
 
         void addExpr(Expr* expr);

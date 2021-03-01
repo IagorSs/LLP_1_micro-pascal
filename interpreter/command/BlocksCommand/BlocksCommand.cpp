@@ -5,9 +5,7 @@ BlocksCommand::BlocksCommand(int line)
 }
 
 BlocksCommand::~BlocksCommand() {
-	for (std::list<Command*>::iterator it = m_cmds.begin(),
-	     ed = m_cmds.end(); it != ed; it++) {
-		Command* cmd = *it;
+	for (Command* cmd: m_cmds) {
 		delete cmd;
 	}
 }
@@ -17,9 +15,7 @@ void BlocksCommand::addCommand(Command* cmd) {
 }
 
 void BlocksCommand::execute() {
-	for (std::list<Command*>::iterator it = m_cmds.begin(),
-	     ed = m_cmds.end(); it != ed; it++) {
-		Command* cmd = *it;
+	for (Command* cmd: m_cmds) {
 		cmd->execute();
 	}
 }
