@@ -5,6 +5,10 @@
 #include "../Command.h"
 #include "../../expression/Expr/Variable/Variable.h"
 
+#include "../../value/IntegerValue/IntegerValue.h"
+#include "../../value/StringValue/StringValue.h"
+#include "../../value/RealValue/RealValue.h"
+
 class ReadCommand: public Command {
     public:
         ReadCommand(int line);
