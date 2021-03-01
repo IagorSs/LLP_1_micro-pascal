@@ -404,7 +404,7 @@ Expr* SyntaticAnalysis::procExpr() {
     Expr* c = procTerm();
 
     while ((m_current.type == TKN_ADD) || (m_current.type == TKN_SUB)) {
-        int op;
+        BinaryExpr::BinaryOp op;
 
         switch(m_current.type){
             case TKN_ADD:
@@ -418,7 +418,7 @@ Expr* SyntaticAnalysis::procExpr() {
         advance();
 
         Expr* second = procTerm();
-        BinaryExpr* be = new BinaryExpr(m_lex.line(), c, BinaryExpr::MulOp, second);
+        BinaryExpr* be = new BinaryExpr(m_lex.line(), c, op, second);
         c = new ConstExpr(m_lex.line(), be->expr());
     }
 
