@@ -20,18 +20,18 @@ void  WriteCommand::execute(){
     for(Expr* current:this->m_exprs){
         switch(current->expr()->type()){
             case Type::IntegerType:
-                IntegerValue* value = (IntegerValue*)(current->expr());
-                printf("%i", value->value());
+                IntegerValue* valueInt = (IntegerValue*)(current->expr());
+                printf("%i", valueInt->value());
                 break;
 
             case Type::RealType:
-                RealValue* value = (RealValue*)(current->expr());
-                printf("%lf", value->value());
+                RealValue* valueReal = (RealValue*)(current->expr());
+                printf("%lf", valueReal->value());
                 break;
 
             case Type::StringType:
-                StringValue* value = (StringValue*)(current->expr());
-                printf("%s", value->value());
+                StringValue* valueString = (StringValue*)(current->expr());
+                printf("%s", valueString->value());
                 break;
         }
     }
