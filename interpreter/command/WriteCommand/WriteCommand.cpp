@@ -18,7 +18,20 @@ void WriteCommand::addExpr(Expr* expr){
         
 void  WriteCommand::execute(){
     for(Expr* current:this->m_exprs){
-        switch(current->expr()->type()){
+        if(current->expr()->type() == Type::IntegerType){
+            IntegerValue* valueInt = (IntegerValue*)(current->expr());
+            printf("%i", valueInt->value());
+
+        }
+        if(current->expr()->type() == Type::RealType){
+            RealValue* valueReal = (RealValue*)(current->expr());
+            printf("%lf", valueReal->value());
+        }
+        if(current->expr()->type() == Type::StringType){
+            StringValue* valueString = (StringValue*)(current->expr());
+            printf("%s", valueString->value());
+        }
+        /*switch(current->expr()->type()){
             case Type::IntegerType:
                 IntegerValue* valueInt = (IntegerValue*)(current->expr());
                 printf("%i", valueInt->value());
@@ -34,6 +47,7 @@ void  WriteCommand::execute(){
                 printf("%s", valueString->value());
                 break;
         }
+        */
     }
 
     if(this->m_writeln) printf("\n");
