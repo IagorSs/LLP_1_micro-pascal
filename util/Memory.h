@@ -3,20 +3,16 @@
 
 #include <map>
 #include <string>
+#include "../interpreter/value/Value.h"
 
 class Memory {
 	public:
-		static Type* read(std::string name){
-			return m_memory[name];
-		};
-
-		static void write(std::string name, Type* value){
-			m_memory[name] = value;
-		};
+		static Type* read(std::string& name);
+		static void write(std::string name, Type* value);
 
 	private:
 		static std::map<std::string, Type*> m_memory;
 
 };
 
-#endif
+#endif  

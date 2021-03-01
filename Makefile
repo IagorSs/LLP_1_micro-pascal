@@ -21,6 +21,7 @@ OBJS=lexical/SymbolTable.o \
 		interpreter/command/AssignCommand/AssignCommand.o \
 		interpreter/command/BlocksCommand/BlocksCommand.o \
 		interpreter/command/CaseCommand/CaseCommand.o \
+		interpreter/command/CaseCommand/CaseOption/CaseOption.o \
 		interpreter/command/ForCommand/ForCommand.o \
 		interpreter/command/IfCommand/IfCommand.o \
 		interpreter/command/ReadCommand/ReadCommand.o \
@@ -28,6 +29,7 @@ OBJS=lexical/SymbolTable.o \
 		interpreter/command/WhileCommand/WhileCommand.o \
 		interpreter/command/WriteCommand/WriteCommand.o \
 		\
+		util/Memory.o \
 		mpasi.o
 
 all: $(TARGET)
