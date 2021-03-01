@@ -47,7 +47,6 @@ void SyntaticAnalysis::showError() {
 //                [ var <var> { <var> } ]
 //                <block> '.'
 Command* SyntaticAnalysis::procProgram() {
-    Command* c;
     eat(TKN_PROGRAM);
     procId();
     eat(TKN_SEMICOLON);
@@ -62,6 +61,7 @@ Command* SyntaticAnalysis::procProgram() {
         procVar();
         while (m_current.type == TKN_ID) procVar();
     }
+
     Command* c = procBlock();
     eat(TKN_DOT);
     return c;
@@ -111,7 +111,7 @@ Command* SyntaticAnalysis::procBody() {
 BlocksCommand* SyntaticAnalysis::procBlock() {
     eat(TKN_BEGIN);
 
-    BlocksCommand* c;
+    BlocksCommand* c = new BlocksCommand(m_lex.line());
 
     if ((m_current.type == TKN_ID) || (m_current.type == TKN_IF)
         || (m_current.type == TKN_CASE)|| (m_current.type == TKN_WHILE)
@@ -222,7 +222,7 @@ WhileCommand* SyntaticAnalysis::procWhile() {
 
 // <repeat>   ::= repeat [ <cmd> { ';' <cmd> } ] until <boolexpr>
 RepeatCommand* SyntaticAnalysis::procRepeat() {
-    BlocksCommand* cmds;
+    BlocksCommand* cmds = new BlocksCommand(m_lex.line());
     eat(TKN_REPEAT);
     
     if((m_current.type == TKN_ID) || (m_current.type == TKN_IF)
@@ -332,6 +332,8 @@ BoolExpr* SyntaticAnalysis::procBoolExpr() {
             case TKN_OR:
                 op = CompositeBoolExpr::Or;
                 break;
+
+            default: break;
         }
 
         advance();
@@ -411,6 +413,7 @@ Expr* SyntaticAnalysis::procExpr() {
             case TKN_SUB:
                 op = BinaryExpr::SubOp;
                 break;
+            default: break;
         }
         advance();
 
@@ -443,6 +446,8 @@ Expr* SyntaticAnalysis::procTerm() {
             case TKN_MOD:
                 op = BinaryExpr::ModOp;
                 break;
+
+            default: break;
         }
         advance();
         Expr* second = procFactor();
