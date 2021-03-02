@@ -14,10 +14,15 @@ class Variable : public Expr {
 		
 		void setValue(Type* value);
 
+		void setConst();
+
+		bool isConst();
+
 		virtual Type* expr();
 
 	private:
 		std::string m_name;
+		bool m_isConst = false;
 };
 
 #endif

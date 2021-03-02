@@ -29,7 +29,7 @@ void  WriteCommand::execute(){
         }
         if(current->expr()->type() == Type::StringType){
             StringValue* valueString = (StringValue*)(current->expr());
-            printf("%s", valueString->value());
+            std::cout << valueString->value();
         }
         /*switch(current->expr()->type()){
             case Type::IntegerType:

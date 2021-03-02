@@ -2,6 +2,7 @@
 #define WRITE_COMMAND_H
 
 #include <list>
+#include <iostream>
 #include "../Command.h"
 #include "../../expression/Expr/Expr.h"
 

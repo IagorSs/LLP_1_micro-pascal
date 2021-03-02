@@ -18,7 +18,6 @@ class SingleBoolExpr : public BoolExpr {
 		SingleBoolExpr(int line, Expr* left, enum RelOp op, Expr* right);
 		virtual ~SingleBoolExpr();
 
-		virtual int line();
 		virtual bool expr();
 
 	private:

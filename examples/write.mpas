@@ -1,5 +1,9 @@
 program teste_write;
 
+var
+  b, a = 0;
+
 begin
-  write(5)
+  b := a;
+  writeln(b)
 end.

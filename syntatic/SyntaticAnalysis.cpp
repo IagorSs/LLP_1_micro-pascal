@@ -47,22 +47,25 @@ void SyntaticAnalysis::showError() {
 //                [ var <var> { <var> } ]
 //                <block> '.'
 Command* SyntaticAnalysis::procProgram() {
+    BlocksCommand* c = new BlocksCommand(m_lex.line());
+
     eat(TKN_PROGRAM);
+    // Variável não está sendo usada para nada
     procId();
     eat(TKN_SEMICOLON);
     if(m_current.type == TKN_CONST){
         advance();
-        procConst();
+        c->addCommand(procConst());
         
-        while (m_current.type == TKN_ID) procConst();
+        while (m_current.type == TKN_ID) c->addCommand(procConst());
     }
     if(m_current.type == TKN_VAR){
         advance();
-        procVar();
-        while (m_current.type == TKN_ID) procVar();
+        c->addCommand(procVar());
+        while (m_current.type == TKN_ID) c->addCommand(procVar());
     }
 
-    Command* c = procBlock();
+    c->addCommand(procBlock());
     eat(TKN_DOT);
     return c;
 }
@@ -70,6 +73,7 @@ Command* SyntaticAnalysis::procProgram() {
 // <const>    ::= <id> = <value> ';'
 AssignCommand* SyntaticAnalysis::procConst() {
     Variable* var = procId();
+    var->setConst();
     eat(TKN_EQUAL);
     Type* value= procValue();
     eat(TKN_SEMICOLON);
