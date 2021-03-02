@@ -34,7 +34,7 @@ void ReadCommand::execute(){
         for(char c_c : input){
             int c_i = (int) c_c;
 
-            if(isalpha(c_i) || c_c == '_' || c_c == ' '){
+            if(isalpha(c_i) || c_c == '_'){
                 numberOrString = true;
                 break;
             }
