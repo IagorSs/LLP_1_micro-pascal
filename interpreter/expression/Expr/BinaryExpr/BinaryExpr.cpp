@@ -12,32 +12,47 @@ BinaryExpr::~BinaryExpr(){
 Type* BinaryExpr::expr(){
     //Tem que implementar
 
+    Type::ValueType leftType = m_left->expr()->type();
+    Type::ValueType rightType = m_right->expr()->type();
+
+    Type* left = m_left->expr();
+    Type* right = m_right->expr();
+
+    double v1;
+    double v2;
+    
+    if(leftType == Type::IntegerType) v1 = ((IntegerValue*) left)->value();
+    else v1 = ((RealValue*) left)->value();
+
+    if(rightType == Type::IntegerType) v2 = ((IntegerValue*) right)->value();
+    else v2 = ((RealValue*) right)->value();
+
     Type* result;
     double resultNumber;
 
     switch(this->m_op){
         case BinaryOp::AddOp:
-            resultNumber = ((RealValue*)m_left->expr())->value() + ((RealValue*)m_right->expr())->value();
+            resultNumber = v1 + v2;
             result = new RealValue(resultNumber);
             break;
 
         case BinaryOp::SubOp:
-            resultNumber = ((RealValue*)m_left->expr())->value() - ((RealValue*)m_right->expr())->value();
+            resultNumber = v1 - v2;
             result = new RealValue(resultNumber);
             break;
 
         case BinaryOp::MulOp:
-            resultNumber = ((RealValue*)m_left->expr())->value() * ((RealValue*)m_right->expr())->value();
+            resultNumber = v1 * v2;
             result = new RealValue(resultNumber);
             break;
 
         case BinaryOp::DivOp:
-            resultNumber = ((RealValue*)m_left->expr())->value() / ((RealValue*)m_right->expr())->value();
+            resultNumber = v1/v2;
             result = new RealValue(resultNumber);
             break;
 
         case BinaryOp::ModOp:
-            resultNumber = ((IntegerValue*)m_left->expr())->value() % ((IntegerValue*)m_right->expr())->value();
+            resultNumber = (int)v1 % (int)v2;
             result = new IntegerValue(resultNumber);
             break;
     }

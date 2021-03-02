@@ -37,15 +37,15 @@ void syntaticTest(char *filename){
 }
 
 int main(int argc, char* argv[]) {
-    // if (argc != 2) {
-    //     printf("Usage: %s [miniPascal file]\n", argv[0]);
-    //     return 1;
-    // }
+    if (argc != 2) {
+        printf("Usage: %s [miniPascal file]\n", argv[0]);
+        return 1;
+    }
 
     try {
-        // char *filename = argv[1];
+        char *filename = argv[1];
 
-        char *filename = "./examples/write.mpas";
+        // char *filename = "./examples/write.mpas";
 
         // lexicalTest(filename);
         // syntaticTest(filename);

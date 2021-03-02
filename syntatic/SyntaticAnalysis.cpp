@@ -422,8 +422,7 @@ Expr* SyntaticAnalysis::procExpr() {
         advance();
 
         Expr* second = procTerm();
-        BinaryExpr* be = new BinaryExpr(m_lex.line(), c, op, second);
-        c = new ConstExpr(m_lex.line(), be->expr());
+        c = new BinaryExpr(m_lex.line(), c, op, second);
     }
 
     return c;
@@ -456,8 +455,7 @@ Expr* SyntaticAnalysis::procTerm() {
         advance();
         Expr* second = procFactor();
 
-        BinaryExpr* be = new BinaryExpr(m_lex.line(), c, BinaryExpr::MulOp, second);
-        c = new ConstExpr(m_lex.line(), be->expr());
+        c = new BinaryExpr(m_lex.line(), c, BinaryExpr::MulOp, second);
     }
     
     return c;

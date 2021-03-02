@@ -13,6 +13,6 @@ void RepeatCommand::execute(){
     // Tem que implementar
     do {
         m_cmds->execute();
-    } while (this->m_cond->expr());
+    } while (!this->m_cond->expr());
     
 }

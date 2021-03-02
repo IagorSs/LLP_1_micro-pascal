@@ -11,8 +11,20 @@ SingleBoolExpr::~SingleBoolExpr() {
 
 bool SingleBoolExpr::expr() {
 	//Tem que fazer o cast ainda se isso n funcionar
-	Type* v1 = m_left->expr();
-	Type* v2 = m_right->expr();
+	Type::ValueType leftType = m_left->expr()->type();
+	Type::ValueType rightType = m_right->expr()->type();
+
+	Type* left = m_left->expr();
+	Type* right = m_right->expr();
+
+	double v1;
+	double v2;
+	
+	if(leftType == Type::IntegerType) v1 = ((IntegerValue*) left)->value();
+	else v1 = ((RealValue*) left)->value();
+
+	if(rightType == Type::IntegerType) v2 = ((IntegerValue*) right)->value();
+	else v2 = ((RealValue*) right)->value();
 
 	switch (m_op) {
 		case SingleBoolExpr::EQUAL:

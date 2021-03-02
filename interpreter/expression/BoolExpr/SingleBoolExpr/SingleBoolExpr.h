@@ -3,6 +3,8 @@
 
 #include "../BoolExpr.h"
 #include "../../Expr/Expr.h"
+#include "../../../value/RealValue/RealValue.h"
+#include "../../../value/IntegerValue/IntegerValue.h"
 
 class SingleBoolExpr : public BoolExpr {
 	public:

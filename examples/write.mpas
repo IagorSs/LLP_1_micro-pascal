@@ -1,9 +1,12 @@
 program teste_write;
 
 var
-  b, a = 0;
+  b, a = 2;
 
 begin
-  b := a;
-  writeln(b)
+  b := 3;
+  if a < b then
+  begin
+    writeln('Sim ?')
+  end
 end.
